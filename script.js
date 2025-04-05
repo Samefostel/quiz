@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let timerInterval;
   let playerName = "";
   const maleNames = ["evelone", "lebiga", "zloy", "pirat", "stariy_bog", "prime_Freemok"];
-  const femaleNames = ["barbie_girl", "gensyxa", "by_owl", "Анастасія", "Світлана"];
+  // const femaleNames = ["barbie_girl", "gensyxa", "by_owl", "Анастасія", "Світлана" , "Barbie_facts" , "Улітаю на Гаити" ];
   const signs = ["+", "-", "*", "/"];
 
   function generateRandomName() {
