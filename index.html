@@ -1,314 +1,166 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Математична гра</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        .container {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-        .avatar-selection {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-        }
-        .avatar-selection img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s ease-in-out, border 0.3s ease;
-        }
-        .avatar-selection img.selected {
-            border: 3px solid #007bff;
-            transform: scale(1.1);
-        }
-        .start-btn {
-            background-color: #28a745;
-            color: white;
-            padding: 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            width: 100%;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .start-btn:hover {
-            background-color: #218838;
-        }
-        .hidden {
-            display: none;
-        }
-        .timer {
-            font-size: 1.5rem;
-            margin: 20px 0;
-            background-color: #007bff;
-            color: white;
-            border-radius: 50%;
-            padding: 20px;
-            width: 120px;
-            height: 120px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.2;
-        }
-        .material-symbols-outlined {
-            font-size: 36px;
-            margin-bottom: 5px;
-        }
-        .question {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-        .answers {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .answer-btn {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .answer-btn:hover {
-            background-color: #0056b3;
-            transform: scale(1.1);
-        }
-        .statistics {
-            font-size: 1.2rem;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Математична гра</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .avatar-selection {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 1rem 0;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: border 0.3s ease;
+    }
+
+    .avatar.selected {
+      border-color: #007bff;
+    }
+
+    .start-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .start-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .question {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+
+    .answers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .answer-btn {
+      padding: 15px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .answer-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .statistics {
+      text-align: center;
+      font-size: 18px;
+    }
+
+    #timer-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .timer {
+      font-size: 18px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .material-symbols-outlined {
+      font-size: 24px;
+      vertical-align: middle;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
+  <div class="container">
     <!-- Avatar and Name Selection -->
     <div id="avatar-screen">
-        <h1>Математична гра</h1>
-        <div class="avatar-selection">
-            <img src="https://yt3.googleusercontent.com/qGrcViAdsmfdL8NhR03s6jZVi2AP4A03XeBFShu2M4Jd88k1fNXDnpMEmHU6CvNJuMyA2z1maA0=s900-c-k-c0x00ffffff-no-rj" alt="Avatar 1" class="avatar" />
-            <img src="https://i.insider.com/5ebf0f16aee6a826327d9111?width=700" alt="Avatar 2" class="avatar" />
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT94gM5Uiorl3CIjHucuXivExvSro9azY1Prta1s1aK4fjo_qt6HIbzWjFW6Us4ujppqms&usqp=CAU" alt="Avatar 3" class="avatar" />
-        </div>
-        <select id="gender-select">
-            <option value="male">Чоловіче ім'я</option>
-            <option value="female">Жіноче ім'я</option>
-        </select>
-        <button id="random-name-btn" class="start-btn">Генерувати ім'я</button>
-        <p id="generated-name"></p>
-        <button id="start-btn" class="start-btn hidden">Почати гру</button>
+      <h1>Математична гра</h1>
+      <div class="avatar-selection">
+        <img src="https://yt3.googleusercontent.com/qGrcViAdsmfdL8NhR03s6jZVi2AP4A03XeBFShu2M4Jd88k1fNXDnpMEmHU6CvNJuMyA2z1maA0=s900-c-k-c0x00ffffff-no-rj" alt="Avatar 1" class="avatar" />
+        <img src="https://i.insider.com/5ebf0f16aee6a826327d9111?width=700" alt="Avatar 2" class="avatar" />
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT94gM5Uiorl3CIjHucuXivExvSro9azY1Prta1s1aK4fjo_qt6HIbzWjFW6Us4ujppqms&usqp=CAU" alt="Avatar 3" class="avatar" />
+      </div>
+      <select id="gender-select">
+        <option value="male">Чоловіче ім'я</option>
+        <option value="female">Жіноче ім'я</option>
+      </select>
+      <button id="random-name-btn" class="start-btn">Генерувати ім'я</button>
+      <p id="generated-name"></p>
+      <button id="start-btn" class="start-btn hidden">Почати гру</button>
     </div>
 
+    <!-- Game Screen -->
     <div id="game-screen" class="hidden">
-        <div id="timer-container">
-            <div class="timer" id="timer-text">
-                <span class="material-symbols-outlined">timer</span>
-                <span id="timer-value">60 сек</span>
-            </div>
+      <div id="timer-container">
+        <div class="timer">
+          <span class="material-symbols-outlined">timer</span>
+          <span id="timer-text">60 сек</span>
         </div>
-        <div id="question" class="question"></div>
-        <div id="answers" class="answers">
-            <button class="answer-btn" id="answer1"></button>
-            <button class="answer-btn" id="answer2"></button>
-            <button class="answer-btn" id="answer3"></button>
-            <button class="answer-btn" id="answer4"></button>
-        </div>
+      </div>
+      <div id="question" class="question"></div>
+      <div id="answers" class="answers">
+        <button class="answer-btn" id="answer1"></button>
+        <button class="answer-btn" id="answer2"></button>
+        <button class="answer-btn" id="answer3"></button>
+        <button class="answer-btn" id="answer4"></button>
+      </div>
     </div>
 
+    <!-- Statistics -->
     <div id="stat-screen" class="hidden statistics">
-        <h3 id="stat-message"></h3>
-        <button id="start-btn-stat" class="start-btn">Почати знову</button>
+      <h3 id="stat-message"></h3>
+      <button id="start-btn-stat" class="start-btn">Почати знову</button>
     </div>
-</div>
+  </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const startBtn = document.getElementById('start-btn');
-    const startBtnStat = document.getElementById('start-btn-stat');
-    const startScreen = document.getElementById('avatar-screen');
-    const gameScreen = document.getElementById('game-screen');
-    const statScreen = document.getElementById('stat-screen');
-    const questionElement = document.getElementById('question');
-    const answerBtns = document.querySelectorAll('.answer-btn');
-    const statMessage = document.getElementById('stat-message');
-    const timerValue = document.getElementById('timer-value');
-    const randomNameBtn = document.getElementById('random-name-btn');
-    const generatedNameElement = document.getElementById('generated-name');
-    const avatarImages = document.querySelectorAll('.avatar');
-    const genderSelect = document.getElementById('gender-select');
-
-    let selectedAvatar = null;
-    let correctAnswers = 0;
-    let totalQuestions = 0;
-    let currentQuestion = {};
-    let timeLeft = 60;
-    let timerInterval;
-    let playerName = "";
-    const maleNames = ["evelone", "lebiga", "zloy", "pirat", "stariy_bog", "prime_Freemok"];
-    const femaleNames = ["barbie_girl", "gensyxa", "by_owl", "Анастасія", "Світлана"];
-    const signs = ["+", "-", "*", "/"];
-
-    function generateRandomName() {
-        const gender = genderSelect.value;
-        const names = gender === "male" ? maleNames : femaleNames;
-        const name = names[Math.floor(Math.random() * names.length)];
-        playerName = name;
-        generatedNameElement.textContent = `Ваше ім'я: ${name}`;
-        startBtn.classList.remove('hidden');
-    }
-
-    avatarImages.forEach(img => {
-        img.addEventListener('click', () => {
-            avatarImages.forEach(avatar => avatar.classList.remove('selected'));
-            img.classList.add('selected');
-            selectedAvatar = img.src;
-        });
-    });
-
-    function updateTimer() {
-        timerValue.textContent = `${timeLeft} сек`;
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            showStatistics();
-        } else {
-            timeLeft--;
-        }
-    }
-
-    function showStatistics() {
-        const accuracy = totalQuestions ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
-        statMessage.innerHTML = `Ви дали ${correctAnswers} правильних відповідей з ${totalQuestions}<br>Точність: ${accuracy}%`;
-        gameScreen.classList.add('hidden');
-        statScreen.classList.remove('hidden');
-    }
-
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function getRandomSign() {
-        return signs[getRandomInt(0, signs.length - 1)];
-    }
-
-    class Question {
-        constructor() {
-            const num1 = getRandomInt(1, 30);
-            const num2 = getRandomInt(1, 30);
-            const sign = getRandomSign();
-            let correctAnswer;
-
-            switch (sign) {
-                case "+": correctAnswer = num1 + num2; break;
-                case "-": correctAnswer = num1 - num2; break;
-                case "*": correctAnswer = num1 * num2; break;
-                case "/": correctAnswer = (num1 / num2).toFixed(1); break;
-            }
-
-            this.questionText = `${num1} ${sign} ${num2}`;
-            this.correctAnswer = correctAnswer;
-
-            const answers = [
-                correctAnswer,
-                getRandomInt(1, 60),
-                getRandomInt(1, 60),
-                getRandomInt(1, 60),
-            ];
-
-            shuffle(answers);
-            this.answers = answers;
-        }
-
-        display() {
-            questionElement.textContent = this.questionText;
-            answerBtns.forEach((btn, index) => {
-                btn.textContent = this.answers[index];
-                btn.onclick = this.checkAnswer.bind(this);
-            });
-        }
-
-        checkAnswer(event) {
-            const selectedAnswer = parseFloat(event.target.textContent);
-            if (selectedAnswer === parseFloat(this.correctAnswer)) {
-                correctAnswers++;
-                event.target.style.backgroundColor = "#28a745";
-            } else {
-                event.target.style.backgroundColor = "#dc3545";
-            }
-
-            totalQuestions++;
-            setTimeout(() => {
-                event.target.style.backgroundColor = "#007bff";
-                loadNextQuestion();
-            }, 1000);
-        }
-    }
-
-    function loadNextQuestion() {
-        currentQuestion = new Question();
-        currentQuestion.display();
-    }
-
-    startBtn.addEventListener('click', function () {
-        if (!selectedAvatar) {
-            alert("Виберіть аватар!");
-            return;
-        }
-
-        startScreen.classList.add('hidden');
-        gameScreen.classList.remove('hidden');
-        correctAnswers = 0;
-        totalQuestions = 0;
-        timeLeft = 60;
-        updateTimer();
-        timerInterval = setInterval(updateTimer, 1000);
-        loadNextQuestion();
-    });
-
-    startBtnStat.addEventListener('click', function () {
-        statScreen.classList.add('hidden');
-        startScreen.classList.remove('hidden');
-    });
-
-    randomNameBtn.addEventListener('click', generateRandomName);
-});
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
