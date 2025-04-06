@@ -12,16 +12,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const generatedNameElement = document.getElementById('generated-name');
   const avatarImages = document.querySelectorAll('.avatar');
   const genderSelect = document.getElementById('gender-select');
+  const themeToggle = document.getElementById('theme-toggle');
+  const endEarlyBtn = document.getElementById('end-early-btn');
+
+  themeToggle.addEventListener('change', () => {
+    document.body.classList.toggle('dark', themeToggle.checked);
+  });
 
   let selectedAvatar = null;
   let correctAnswers = 0;
   let totalQuestions = 0;
-  let currentQuestion = {};
   let timeLeft = 60;
   let timerInterval;
   let playerName = "";
   const maleNames = ["evelone", "lebiga", "zloy", "pirat", "stariy_bog", "prime_Freemok"];
-  // const femaleNames = ["barbie_girl", "gensyxa", "by_owl", "Анастасія", "Світлана" , "Barbie_facts" , "Улітаю на Гаити" ];
+  const femaleNames = ["barbie_girl", "gensyxa", "by_owl", "Анастасія", "Світлана", "Barbie_facts", "Улітаю на Гаити"];
   const signs = ["+", "-", "*", "/"];
 
   function generateRandomName() {
@@ -53,14 +58,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function showStatistics() {
     const accuracy = totalQuestions ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
-    statMessage.innerHTML = `Ви дали ${correctAnswers} правильних відповідей з ${totalQuestions}<br>Точність: ${accuracy}%`;
+    const incorrect = totalQuestions - correctAnswers;
+    statMessage.innerHTML = `
+      <p><strong>${playerName}</strong></p>
+      <p><img src="${selectedAvatar}" alt="Аватар" style="width: 100px; border-radius: 50%;" /></p>
+      <p>Правильних: ✅ ${correctAnswers}</p>
+      <p>Неправильних: ❌ ${incorrect}</p>
+      <p>Точність: ${accuracy}%</p>
+    `;
     gameScreen.classList.add('hidden');
     statScreen.classList.remove('hidden');
   }
 
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
+      const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
@@ -81,18 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
       let correctAnswer;
 
       switch (sign) {
-        case "+":
-          correctAnswer = num1 + num2;
-          break;
-        case "-":
-          correctAnswer = num1 - num2;
-          break;
-        case "*":
-          correctAnswer = num1 * num2;
-          break;
-        case "/":
-          correctAnswer = (num1 / num2).toFixed(1);
-          break;
+        case "+": correctAnswer = num1 + num2; break;
+        case "-": correctAnswer = num1 - num2; break;
+        case "*": correctAnswer = num1 * num2; break;
+        case "/": correctAnswer = (num1 / num2).toFixed(1); break;
       }
 
       this.questionText = `${num1} ${sign} ${num2}`;
@@ -118,28 +122,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     checkAnswer(event) {
-      const selectedAnswer = parseFloat(event.target.textContent);
-      if (selectedAnswer === parseFloat(this.correctAnswer)) {
+      const selected = parseFloat(event.target.textContent);
+      if (selected === parseFloat(this.correctAnswer)) {
         correctAnswers++;
-        event.target.style.backgroundColor = "#28a745";
+        event.target.style.backgroundColor = "var(--correct)";
       } else {
-        event.target.style.backgroundColor = "#dc3545";
+        event.target.style.backgroundColor = "var(--wrong)";
       }
 
       totalQuestions++;
       setTimeout(() => {
-        event.target.style.backgroundColor = "#007bff";
+        event.target.style.backgroundColor = "var(--btn-bg)";
         loadNextQuestion();
       }, 1000);
     }
   }
 
   function loadNextQuestion() {
-    currentQuestion = new Question();
-    currentQuestion.display();
+    const q = new Question();
+    q.display();
   }
 
-  startBtn.addEventListener('click', function () {
+  startBtn.addEventListener('click', () => {
     if (!selectedAvatar) {
       alert("Виберіть аватар!");
       return;
@@ -155,9 +159,14 @@ document.addEventListener("DOMContentLoaded", function () {
     loadNextQuestion();
   });
 
-  startBtnStat.addEventListener('click', function () {
+  startBtnStat.addEventListener('click', () => {
     statScreen.classList.add('hidden');
     startScreen.classList.remove('hidden');
+  });
+
+  endEarlyBtn.addEventListener('click', () => {
+    clearInterval(timerInterval);
+    showStatistics();
   });
 
   randomNameBtn.addEventListener('click', generateRandomName);
