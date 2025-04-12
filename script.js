@@ -115,6 +115,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     display() {
       questionElement.textContent = this.questionText;
+      questionElement.classList.add('visible');
+
       answerBtns.forEach((btn, index) => {
         btn.textContent = this.answers[index];
         btn.onclick = this.checkAnswer.bind(this);
@@ -133,14 +135,18 @@ document.addEventListener("DOMContentLoaded", function () {
       totalQuestions++;
       setTimeout(() => {
         event.target.style.backgroundColor = "var(--btn-bg)";
+        questionElement.classList.remove('visible');
         loadNextQuestion();
       }, 1000);
     }
   }
 
   function loadNextQuestion() {
-    const q = new Question();
-    q.display();
+    questionElement.classList.remove('visible');
+    setTimeout(() => {
+      const q = new Question();
+      q.display();
+    }, 100);
   }
 
   startBtn.addEventListener('click', () => {
